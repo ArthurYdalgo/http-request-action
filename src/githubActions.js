@@ -7,6 +7,10 @@ class GithubActions {
     core.debug(message)
   }
 
+  info(message) {
+    core.info(message)
+  }
+
   warning(message) {
     core.warning(message)
   }
@@ -15,12 +19,20 @@ class GithubActions {
     core.setOutput(name, output)
   }
 
+  setSecret(value) {
+    core.setSecret(value)
+  }
+
   setFailed(message) {
     core.setFailed(message)
   }
 }
 
 class LogActions {
+  info(message) {
+    console.info(message)
+  }
+
   debug(message) {
     console.info(message)
   }

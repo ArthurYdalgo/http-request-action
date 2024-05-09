@@ -29,7 +29,7 @@ inputs:
         description: 'Auth Password'
         required: false
     timeout:
-        description: 'Request Timeout in Sec'
+        description: 'Request Timeout in milliseconds'
         required: false
         default: '5000'
     bearerToken:
@@ -50,11 +50,33 @@ inputs:
     httpsCA:
         description: 'Certificate authority as string in PEM format'
         required: false
+    httpsCert:
+        description: 'Client Certificate as string'
+        required: false
+    httpsKey:
+        description: 'Client Certificate Key as string'
+        required: false
+    responseFile:
+        description: 'Persist the response data to the specified file path'
+        required: false
+    maskResponse:
+        description: 'Allows to mark your response as secret and hide the output in the action logs'
+        required: false
+        default: 'false'
+    retry:
+        description: 'optional amount of retries if the request fails'
+        required: false
+    retryWait:
+        description: 'wait time between retries in milliseconds'
+        required: false
+    ignoreSsl:
+        description: 'ignore ssl verify (rejectUnauthorized: false)'
+        default: 'false'
 outputs:
     response:
         description: 'HTTP Response Content'
     headers:
         description: 'HTTP Response Headers'
 runs:
-    using: 'node16'
+    using: 'node20'
     main: 'dist/index.js'

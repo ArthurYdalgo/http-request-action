@@ -26,10 +26,10 @@ jobs:
           echo "branch=$branch" >> $GITHUB_OUTPUT
         fi
     - name: checkout repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         ref: ${{ steps.ref.outputs.branch }}
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
         node-version: '16'
     - name: Install dependencies
@@ -56,10 +56,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: checkout repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         persist-credentials: false
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
         node-version: '16.17.0'
     - name: Build action
@@ -77,7 +77,7 @@ jobs:
       - integrity
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
@@ -131,6 +131,17 @@ jobs:
           method: 'POST'
           data: '{ "key": "value" }'
           files: '{ "file": "${{ github.workspace }}/testfile.txt" }'
+
+      - name: Request Postman Echo POST and persist response
+        uses: ./
+        with:
+          url: 'https://postman-echo.com/post'
+          method: 'POST'
+          file: "${{ github.workspace }}/testfile.txt"
+          responseFile: "${{ github.workspace }}/response.json"
+      - name: Output responseFile
+        run: |
+          cat "${{ github.workspace }}/response.json"
 
       - name: Request Postman Echo POST Multipart without data
         uses: ./
